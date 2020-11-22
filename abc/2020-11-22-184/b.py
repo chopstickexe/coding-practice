@@ -1,0 +1,13 @@
+def main():
+    N, X = [int(x) for x in input().split()]
+    S = input()
+    for s in S:
+        if s == "o":
+            X += 1
+        elif X > 0:
+            X -= 1
+    print(X)
+
+
+if __name__ == "__main__":
+    main()
