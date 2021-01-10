@@ -3,6 +3,7 @@ from typing import List
 
 
 def dijkstra(s: int, e: int, cost: List[List[int]]):
+    # O(|V|^2)
     V = len(cost)
     d = [sys.maxsize for _ in range(V)]
     used = [False for _ in range(V)]
@@ -29,30 +30,20 @@ def dijkstra(s: int, e: int, cost: List[List[int]]):
             d[u] = min(d[u], d[v] + cost[v][u])
 
 
-def main():
-    V = 7
+def parse_input():
+    V, E = [int(x) for x in input().split()]
+    S, G = [int(x) for x in input().split()]
     cost = [[sys.maxsize for x in range(V)] for y in range(V)]
-    cost[0][1] = 2
-    cost[1][0] = 2
-    cost[0][2] = 5
-    cost[2][0] = 5
-    cost[1][2] = 4
-    cost[2][1] = 4
-    cost[1][3] = 6
-    cost[3][1] = 6
-    cost[2][3] = 2
-    cost[3][2] = 2
-    cost[1][4] = 10
-    cost[4][1] = 10
-    cost[3][5] = 1
-    cost[5][3] = 1
-    cost[4][5] = 3
-    cost[5][4] = 3
-    cost[4][6] = 5
-    cost[6][4] = 5
-    cost[5][6] = 9
-    cost[6][5] = 9
-    ret = dijkstra(0, 6, cost)
+    for _ in range(0, E):
+        i, j, c = [int(x) for x in input().split()]
+        cost[i][j] = c
+        cost[j][i] = c  # undirected graph
+    return V, E, S, G, cost
+
+
+def main():
+    V, E, S, G, cost = parse_input()
+    ret = dijkstra(S, G, cost)
     print(ret)
 
 
