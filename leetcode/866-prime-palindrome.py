@@ -2,7 +2,7 @@ import math
 
 
 class Solution:
-    def isPrime(self, N: int) -> bool:
+    def is_prime(self, N: int) -> bool:
         if N == 1:
             return False
         for i in range(2, int(math.sqrt(N)) + 1):
@@ -10,22 +10,22 @@ class Solution:
                 return False
         return True
 
-    def isPalindrome(self, N: int) -> bool:
-        N = str(N)
-        if len(N) == 1:
-            return True
-        for i in range(0, len(N)):
-            if i != math.ceil(len(N) / 2) and N[i] != N[-(i + 1)]:
-                return False
-        return True
-
     def primePalindrome(self, N: int) -> int:
-        for ans in range(N, 10 ** 8 * 2):
-            # print(ans)
-            if self.isPalindrome(ans) and self.isPrime(ans):
-                break
+        for digits in range(1, 6):
+            # Check for odd-length paliindromes
+            for s in range(10 ** (digits - 1), 10 ** digits):
+                s = str(s)
+                x = int(s + s[-2::-1])  # eg. s = '123' -> x = int('123' + '21')
+                if x >= N and self.is_prime(x):
+                    return x
+            # Check for even-length palindromes
+            for s in range(10 ** (digits - 1), 10 ** digits):
+                s = str(s)
+                x = int(s + s[-1::-1])  # eg. s = '123' -> x = int('123' + '321')
+                if x >= N and self.is_prime(x):
+                    return x
         return ans
 
 
 if __name__ == "__main__":
-    print(Solution().primePalindrome(13))
+    print(Solution().primePalindrome(9989900))
