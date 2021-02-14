@@ -24,7 +24,6 @@ class Solution:
                 x = int(s + s[-1::-1])  # eg. s = '123' -> x = int('123' + '321')
                 if x >= N and self.is_prime(x):
                     return x
-        return ans
 
 
 if __name__ == "__main__":
