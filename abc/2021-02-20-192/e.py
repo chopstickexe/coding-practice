@@ -1,6 +1,5 @@
 import heapq
 import math
-import sys
 from collections import defaultdict
 
 
@@ -11,27 +10,25 @@ def main():
         A, B, T, K = [int(x) for x in input().split()]
         trains[A].append((B, T, K))
         trains[B].append((A, T, K))
-    routes = [(X, 0)]
+    routes = [(0, X)]
     visited = set()
-    ans = sys.maxsize
+    ans = -1
     while len(routes) > 0:
-        city, cost = heapq.heappop(routes)
+        cost, city = heapq.heappop(routes)
+        if city in visited:
+            continue
         # print(f"{city}: {cost}")
-        if city == Y and cost < ans:
+        if city == Y:
             ans = cost
-            continue
-        elif cost > ans:
-            # Cannot be the shortest
-            continue
+            break
+
         visited.add(city)
         for n_city, n_cost, period in trains[city]:
             if n_city in visited:
                 continue
             wait = math.ceil(cost / period) * period - cost
-            heapq.heappush(
-                routes, (n_city, cost + n_cost + wait)
-            )
-    print(ans if ans < sys.maxsize else -1)
+            heapq.heappush(routes, (cost + n_cost + wait, n_city))
+    print(ans)
 
 
 if __name__ == "__main__":
