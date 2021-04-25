@@ -47,7 +47,8 @@ def color(nodes: List[int], graph: Dict[int, List[int]], N: int) -> int:
         n = nodes[i]
         ret = 0
         for c in [1, 2, 3]:
-            # Try each color
+            # Try coloring this node as c
+
             def _ok(c):
                 for neighbor in graph[n]:
                     if pattern[neighbor] == c:
@@ -56,8 +57,9 @@ def color(nodes: List[int], graph: Dict[int, List[int]], N: int) -> int:
 
             if not _ok(c):
                 continue
-            # Try coloring this node as c
+
             pattern[n] = c
+
             # Get a number of possible patterns after this node (get sum because these are "OR" options)
             ret += _color(i + 1, pattern)
             # Back to initial before trying another
