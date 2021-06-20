@@ -1,5 +1,6 @@
 from typing import Any, List
 
+
 class UnionFind:
     def __init__(self, values: List[Any]) -> None:
         self.v2x = {}
@@ -9,7 +10,7 @@ class UnionFind:
             self.x2v[i] = v
 
         self.N = len(values)
-        
+
         self.par = [i for i in range(self.N)]
         self.rank = [0 for _ in range(self.N)]
 
@@ -44,33 +45,9 @@ class UnionFind:
             self.par[y] = x
             if self.rank[x] == self.rank[y]:
                 self.rank[x] += 1
-    
+
     def same(self, vx: Any, vy: Any) -> bool:
         return self._same(self.v2x[vx], self.v2x[vy])
 
     def _same(self, x: int, y: int) -> bool:
         return self._find(x) == self._find(y)
-
-
-def main():
-    N = int(input())
-    A = [int(x) for x in input().split()]
-    
-    uniq_a = list(set(A))
-    tree = UnionFind(uniq_a)
-    i = 0
-    j = N - 1
-    while i < j:
-        tree.unite(A[i], A[j])
-        i += 1
-        j -= 1
-
-    roots = set()
-    for a in uniq_a:
-        roots.add(tree.find(a))
-    
-    print(len(uniq_a) - len(roots))
-
-
-if __name__ == "__main__":
-    main()
