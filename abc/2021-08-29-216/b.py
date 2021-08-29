@@ -9,6 +9,7 @@ def main():
         S, T = input().split()
         if S in names.keys() and T in names[S]:
             ans = True
+        names[S].add(T)
     print("Yes") if ans else print("No")
 
 
