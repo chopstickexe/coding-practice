@@ -1,7 +1,6 @@
 class Solution:
     def checkXMatrix(self, grid: List[List[int]]) -> bool:
         n = len(grid)
-        print(n)
         output = True
         for i in range(0, n):
             for j in range(0, n):
